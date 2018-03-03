@@ -13,11 +13,15 @@ class PersonTests: XCTestCase {
     
     var starkHouse: House!
     var starkSigil: Sigil!
+    var ned: Person!
+    var aria: Person!
     
     override func setUp() {
         super.setUp()
         starkSigil = Sigil(image: UIImage(), description: "Lobo Huargo")
         starkHouse = House(name: "Stark", sigil: starkSigil, words: "Se acerca el invierno")
+        ned = Person(name: "Eddar", alias: "Ned", house: starkHouse)
+        aria = Person(name: "Aria",  house: starkHouse)
     }
     
     override func tearDown() {
@@ -25,16 +29,14 @@ class PersonTests: XCTestCase {
     }
     
     func testCharacterExistence() {
-        let character = Person(name: "Eddar", alias: "Ned", house: starkHouse)
-        XCTAssertNotNil(character)
-    }
-    
-    func testCharacterExistenceWithoutAlias() {
-        let character = Person(name: "Eddar", house: starkHouse)
-        XCTAssertNotNil(character)
+        XCTAssertNotNil(ned)
+        XCTAssertNotNil(aria)
     }
     
     
+    func testCharacterFullName() {
+        XCTAssertEqual(ned.fullName, "Eddar Stark")
+    }
     
     
 
