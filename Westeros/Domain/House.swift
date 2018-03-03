@@ -5,7 +5,6 @@
 //  Created by MARIA BLAZQUEZ on 2/3/18.
 //  Copyright © 2018 Antonio Blázquez. All rights reserved.
 //
-
 import UIKit
 
 typealias Words = String
