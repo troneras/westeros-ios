@@ -8,19 +8,34 @@
 import UIKit
 
 typealias Words = String
+typealias Members = Set<Person>
 
+// MARK: -HOUSE
 final class House {
     let name: String
     let sigil: Sigil
     let words: Words
+    private var _members: Members
     
     init (name: String, sigil: Sigil, words: Words){
         self.name = name
         self.sigil = sigil
         self.words = words
+        _members = Members()
     }
 }
 
+extension House {
+    var count: Int {
+        return _members.count
+    }
+    
+    func addPerson(person: Person) {
+        _members.insert(person)
+    }
+}
+
+// MARK: -SIGIL
 final class Sigil {
     let description: String
     let image: UIImage
