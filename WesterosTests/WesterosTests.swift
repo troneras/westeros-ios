@@ -2,7 +2,7 @@
 //  WesterosTests.swift
 //  WesterosTests
 //
-//  Created by MARIA BLAZQUEZ on 1/3/18.
+//  Created by Antonio Blázquez on 2/3/18.
 //  Copyright © 2018 Antonio Blázquez. All rights reserved.
 //
 

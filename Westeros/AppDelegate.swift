@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Westeros
 //
-//  Created by MARIA BLAZQUEZ on 1/3/18.
+//  Created by Antonio Blázquez on 2/3/18.
 //  Copyright © 2018 Antonio Blázquez. All rights reserved.
 //
 
@@ -20,8 +20,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.backgroundColor = .cyan
         window?.makeKeyAndVisible()
         
-        let root = UIViewController()
-        window?.rootViewController = root
+        let houses = Repository.local.houses
+        let seasons = Repository.local.seasons
+        
+        let seasonListVC = SeasonListViewController(model:seasons)
+        let houseListVC = HouseListTableViewController(model:houses)
+        
+        let lastSelectedHouse = houseListVC.lastSelectedHouse()
+        let houseDetailVC = HouseDetailViewController(model: lastSelectedHouse)
+        let seasonDetailVC = SeasonDetailViewController(model: seasons.first!)
+        
+        //Asignamos el delegado
+        houseListVC.delegate = houseDetailVC
+        seasonListVC.delegate = seasonDetailVC
+    
+        
+        
+        let masterTabBarVC = UITabBarController()
+        masterTabBarVC.viewControllers = [houseListVC.wrappedInNavigation(),seasonListVC.wrappedInNavigation()]
+        let splitVC = UISplitViewController()
+        splitVC.viewControllers = [masterTabBarVC,seasonDetailVC.wrappedInNavigation()]
+        window?.rootViewController = splitVC
+        
+        UINavigationBar.appearance().backgroundColor = .blue
         
         return true
     }
