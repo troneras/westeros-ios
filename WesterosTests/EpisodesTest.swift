@@ -51,6 +51,7 @@ class EpisodesTest: XCTestCase {
     }
     func testEpisodeCustomStringConvertible() {
         XCTAssertEqual( firstEpisode.description, "Se acerca el invierno, 01-04-2011" )
+        XCTAssertEqual( firstEpisode.description, firstEpisodeDouble.description )
     }
     
 }
