@@ -2,7 +2,7 @@
 //  House.swift
 //  Westeros
 //
-//  Created by Antonio Blázquez on 2/3/18.
+//  Created by Antonio Blázquez on 3/3/18.
 //  Copyright © 2018 Antonio Blázquez. All rights reserved.
 //
 
@@ -42,7 +42,6 @@ extension House{
         _members.insert(person)
     }
     func add(persons:Person...){
-       //persons ees de tipo [Person]
         persons.forEach{add(person: $0)}
     }
 }

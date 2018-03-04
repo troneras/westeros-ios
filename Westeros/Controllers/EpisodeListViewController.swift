@@ -8,11 +8,6 @@
 
 import UIKit
 
-//let LAST_EPISODE = "LastEpisode"
-//let EPISODE_KEY = "EpisodeKey"
-//let EPISODE_DID_CHANGE_NOTIFICATION_NAME = "EpisodeDidChange"
-
-
 protocol EpisodeListViewControllerDelegate: class{
     func EpisodeListViewController(_ vc:EpisodeListViewController,didSelectEpisode episode: Episode)
 }
@@ -29,7 +24,6 @@ class EpisodeListViewController: UIViewController {
         self.model = model
         super.init(nibName: nil, bundle: nil)
         title = "Episodes"
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -40,9 +34,9 @@ class EpisodeListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let noticationCenter = NotificationCenter.default
-        noticationCenter.addObserver(self,selector:#selector(seasonDidChange),name:Notification.Name(SEASON_DID_CHANGE_NOTIFICATION_NAME),object: nil)
-        
+        noticationCenter.addObserver( self, selector: #selector(seasonDidChange), name:Notification.Name(SEASON_DID_CHANGE_NOTIFICATION_NAME), object: nil )
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         let noticationCenter = NotificationCenter.default
@@ -60,14 +54,15 @@ class EpisodeListViewController: UIViewController {
     
     //MARK: - Notification
     @objc func seasonDidChange(notification: Notification){
-        
         guard let info = notification.userInfo else { return }
+
         let season = info[SEASON_KEY] as? Season!
         model = season!.sortedEpisodes
+
         self.tableView?.reloadData()
-      
-        
     }
+    
+
 
 }
 extension EpisodeListViewController: UITableViewDataSource{
@@ -93,7 +88,8 @@ extension EpisodeListViewController: UITableViewDataSource{
 extension EpisodeListViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView,didSelectRowAt indexPath: IndexPath) {
         let episode = model[indexPath.row]
-        print(episode)
+        let episodeDetailVC = EpisodeDetailViewController(model: episode)
+        navigationController?.pushViewController(episodeDetailVC, animated: true)
         delegate?.EpisodeListViewController(self,didSelectEpisode:episode)
     }
 }

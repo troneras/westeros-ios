@@ -11,43 +11,50 @@ import XCTest
 
 class RepositoryTest: XCTestCase {
     
-    var localHouse: [House]!
+    var dummyHouse: [House]!
+    
     override func setUp() {
         super.setUp()
-        localHouse = Repository.local.houses
+        dummyHouse = Repository.local.houses
     }
     
     override func tearDown() {
         super.tearDown()
     }
     
-    func testLocalRepositoryCreation(){
+    func testLocalRepositoryExists() {
         let local = Repository.local
-        XCTAssertNotNil(local)
+        XCTAssertNotNil( local )
+    }
+    
+    func testLocalRepositoryHousesExists() {
+        XCTAssertNotNil( dummyHouse )
+        XCTAssertEqual( dummyHouse.count, 3 )
+    }
+    
+    func testLocalRepositoryReturnsSortedHouses() {
+        XCTAssertEqual( dummyHouse, dummyHouse.sorted() )
+    }
+    
+    func testLocalRepositoryReturnsHousesCaseInsensitive() {
+        let stark = Repository.local.house( named:"sTArK" )
+        XCTAssertEqual( stark?.name, "Stark" )
+    
+        let fake = Repository.local.house( named: "fakeHouse" )
+        XCTAssertNil( fake )
+    }
+    
+    func testHouseFilter() {
+        let filtered = Repository.local.houses( filteredBy: { $0.count == 1 } )
+        XCTAssertEqual( filtered.count, 1 )
+    }
+    
+    func testLocalRepositoryReturnsHouseTypesafe() {
+        let stark = Repository.local.house( named: .Stark )
+        let lannister = Repository.local.house( named: .Lannister )
         
-    }
-    
-    func testLocalRepositoryHousesCreation(){
-       
-        XCTAssertNotNil(localHouse)
-        XCTAssertEqual(localHouse.count, 3)
-    }
-    
-    func testLocalRepositoryReturnSortedArrayOfHouses(){
-        XCTAssertEqual(localHouse, localHouse.sorted())
-    }
-    
-    func testLocalRepositoryReturnHousesByCaseInsensitively(){
-        let stark = Repository.local.house(named:"sTaRk");
-        XCTAssertEqual(stark?.name, "Stark")
-    
-        let keepcoding = Repository.local.house(named: "PANCHO");
-        XCTAssertNil(keepcoding);
-    }
-    
-    func testHouseFiltering(){
-        let filtered = Repository.local.houses(filteredBy: { $0.count == 1 })
-        XCTAssertEqual(filtered.count, 1)
+        XCTAssertEqual( stark?.name, "Stark" )
+        XCTAssertNotEqual( lannister?.name, "Stark" )
     }
     
 }

@@ -12,10 +12,10 @@ class SeasonDetailViewController: UIViewController {
 
     //MARK: - Outlets
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var summaryLabel: UILabel!
     @IBOutlet weak var nChaptersLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
- 
-    
+
     //MARK: - Properties
     var model: Season
     
@@ -30,13 +30,13 @@ class SeasonDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     //MARK: - Lifecycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         syncModelSeasonLVC()
         setUpSeasonLVC()
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -49,19 +49,22 @@ class SeasonDetailViewController: UIViewController {
     func syncModelSeasonLVC(){
         nameLabel.text = model.name
         nChaptersLabel.text = String(model.count)
-        dateLabel.text = "Pending publication"
+        dateLabel.text = model.stringDate
+        summaryLabel.text = model.summary
+        
+        let backItem = UIBarButtonItem()
+        backItem.title = model.name
+        navigationItem.backBarButtonItem = backItem
     }
     
     //MARK: - Setup UI
-    func setUpSeasonLVC(){
-        
-        let episodesButton = UIBarButtonItem(title: "Episodes", style: .done, target: self, action: #selector(displayEpisodes))
+    func setUpSeasonLVC() {
+        let episodesButton = UIBarButtonItem( title: "Episodes", style: .done, target: self, action: #selector(displayEpisodes) )
         navigationItem.rightBarButtonItem = episodesButton
     }
 
-    
-    @objc func displayEpisodes(){
-        let episodesListVC = EpisodeListViewController(model:model.sortedEpisodes)
+    @objc func displayEpisodes() {
+        let episodesListVC = EpisodeListViewController( model: model.sortedEpisodes )
         navigationController?.pushViewController(episodesListVC, animated: true)
     }
   

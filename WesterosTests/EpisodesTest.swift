@@ -11,53 +11,46 @@ import XCTest
 
 var firstEpisode: Episode!
 var secondEpisode: Episode!
-
-var fEpisode:Episode!
-
+var firstEpisodeDouble: Episode!
 var dateFirstEpisode: Date!
 var dateSecondEpisode: Date!
 var inputFormatter: DateFormatter!
-
-
-
 
 class EpisodesTest: XCTestCase {
     
     override func setUp() {
         super.setUp()
         inputFormatter = DateFormatter()
-        inputFormatter.dateFormat = "dd/mm/yyyy"
-        dateFirstEpisode = inputFormatter.date(from:"17/04/2011")
-        firstEpisode = Episode(title: "Winter is coming", airDate: dateFirstEpisode!)
-        dateSecondEpisode = inputFormatter.date(from:"01/04/2012")
-        secondEpisode = Episode(title: "The North Remembers", airDate: dateSecondEpisode!)
-        fEpisode = Episode(title: "Winter is coming", airDate: dateFirstEpisode!)
+        inputFormatter.dateFormat = "dd/MM/yyyy"
+        dateFirstEpisode = inputFormatter.date( from: "01/04/2011" )
+        firstEpisode = Episode( title: "Se acerca el invierno", airDate: dateFirstEpisode! )
+        dateSecondEpisode = inputFormatter.date( from:"01/04/2012" )
+        secondEpisode = Episode( title: "The North Remembers", airDate: dateSecondEpisode! )
+        firstEpisodeDouble = Episode( title: "Se acerca el invierno", airDate: dateFirstEpisode! )
     }
     
     override func tearDown() {
         super.tearDown()
     }
     
-    func testSeasonExistence(){
-        XCTAssertNotNil(firstEpisode)
+    func testSeasonExists() {
+        XCTAssertNotNil( firstEpisode )
     }
     
-    
-    func testEpisodeEquality(){
-        XCTAssertEqual(firstEpisode, firstEpisode)
-        XCTAssertNotEqual(firstEpisode, secondEpisode)
-        XCTAssertEqual(firstEpisode, fEpisode)
+    func testEpisodeEquatable() {
+        XCTAssertEqual( firstEpisode, firstEpisode )
+        XCTAssertNotEqual( firstEpisode, secondEpisode )
+        XCTAssertEqual( firstEpisode, firstEpisodeDouble )
     }
     
-    func testEpisodeHashable(){
-        XCTAssertNotNil(firstEpisode.hashValue)
+    func testEpisodeHashable() {
+        XCTAssertNotNil( firstEpisode.hashValue )
     }
-    func testEpisodeComparison(){
-        XCTAssertLessThan(firstEpisode!, secondEpisode!)
+    func testEpisodeComparable() {
+        XCTAssertLessThan( firstEpisode!, secondEpisode! )
     }
-    func testEpisodeCustomStringConvertible(){
-        XCTAssertEqual(firstEpisode.description, fEpisode.description)
+    func testEpisodeCustomStringConvertible() {
+        XCTAssertEqual( firstEpisode.description, "Se acerca el invierno, 01-04-2011" )
     }
-    
     
 }

@@ -15,29 +15,27 @@ typealias Episodes = Set<Episode>
 final class Season{
     
     let name: String
+    let summary: String
     let releaseDate:Date
     private var _episodes: Episodes
     
-    init(name:String, releaseDate:Date, episode: Episode) {
+    init(name: String, summary: String, releaseDate: Date) {
         self.name = name
+        self.summary = summary
         self.releaseDate = releaseDate
         _episodes = Episodes()
-        self.add(episode: episode)
     }
-    
 }
 
 
 extension Season{
-    
     func add(episode:Episode){
         _episodes.insert(episode)
     }
-    
-    func convertDateToString(date:Date)->String{
+    var stringDate:String{
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy"
-        return formatter.string(from: date)
+        return formatter.string(from: releaseDate)
     }
     var sortedEpisodes: [Episode]{
         return _episodes.sorted()
@@ -45,17 +43,16 @@ extension Season{
     var count:Int{
         return _episodes.count
     }
-    
 }
 
 //MARK: - CustomStringConvertible
 extension Season: CustomStringConvertible{
     var description: String {
-        return "\(name), \(convertDateToString(date:releaseDate)), \(_episodes.count)"
+        return "\(name), \(stringDate), \(_episodes.count)"
     }
 }
-//MARK: - Hashable
 
+//MARK: - Hashable
 extension Season:Hashable{
     var hashValue: Int{
         return proxyForEquiality.hashValue
@@ -71,8 +68,6 @@ extension Season{
     var proxyForComparison: Date{
         return releaseDate
     }
-    
-    
 }
 
 //MARK: - Equatable

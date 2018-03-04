@@ -15,51 +15,54 @@ var firstEpisodeSecondSeason: Episode!
 var secondSeason: Season!
 var dateFirstSeason: Date!
 var dateSecondSeason: Date!
-var fSeason: Season!
-
+var firstSeasonDouble: Season!
 
 class SeasonTest: XCTestCase {
     
     override func setUp() {
         super.setUp()
+
         inputFormatter = DateFormatter()
-        inputFormatter.dateFormat = "dd/mm/yyyy"
-        dateFirstSeason = inputFormatter.date(from:"17/04/2011")
-        firstEpisodeFirstSeason = Episode(title:"Winter Is Coming", airDate: dateFirstSeason!)
-        firstSeason = Season(name:"Winter Is Coming",releaseDate:dateFirstSeason!,episode: firstEpisodeFirstSeason)
-        dateSecondSeason = inputFormatter.date(from:"01/04/2012")
-        firstEpisodeSecondSeason = Episode(title: "The North Remembers", airDate: dateSecondSeason!)
-        secondSeason = Season(name: "The North Remembers", releaseDate: dateSecondSeason!, episode: firstEpisodeSecondSeason)
-        fSeason = Season(name:"Winter Is Coming",releaseDate:dateFirstSeason!,episode: firstEpisodeFirstSeason)
+        inputFormatter.dateFormat = "dd/MM/yyyy"
+        dateFirstSeason = inputFormatter.date( from: "01/04/2011" )
+        firstEpisodeFirstSeason = Episode( title: "Se acerca el invierno", airDate: dateFirstSeason! )
+        firstSeason = Season( name: "Se acerca el invierno", summary: "summary",  releaseDate: dateFirstSeason! )
+        firstSeason.add( episode: firstEpisodeFirstSeason )
+        dateSecondSeason = inputFormatter.date( from: "01/04/2012")
+        firstEpisodeSecondSeason = Episode( title: "The North Remembers", airDate: dateSecondSeason! )
+        secondSeason = Season( name: "The North Remembers",  summary: "summary", releaseDate: dateSecondSeason! )
+        secondSeason.add( episode: firstEpisodeSecondSeason )
+        firstSeasonDouble = Season( name: "Se acerca el invierno", summary: "summary",  releaseDate: dateFirstSeason! )
+        firstSeasonDouble.add( episode: firstEpisodeFirstSeason )
     }
     
     override func tearDown() {
         super.tearDown()
     }
     
-    func testSeasonExistence(){
-        XCTAssertNotNil(firstSeason);
+    func testSeasonExistence() {
+        XCTAssertNotNil( firstSeason )
     }
     
-    func testSeasonHasEpisode(){
-        XCTAssertGreaterThan(firstSeason.count, 0 )
+    func testSeasonHasEpisode() {
+        XCTAssertGreaterThan( firstSeason.count, 0 )
     }
     
-    func testSeasonEquality(){
-        XCTAssertEqual(firstSeason, firstSeason)
-        XCTAssertNotEqual(firstSeason, secondSeason)
-        XCTAssertEqual(firstSeason, fSeason)
+    func testSeasonEquatable() {
+        XCTAssertEqual( firstSeason, firstSeason )
+        XCTAssertNotEqual( firstSeason, secondSeason )
+        XCTAssertEqual( firstSeason, firstSeasonDouble )
     }
     
-    func testSeasonHashable(){
+    func testSeasonHashable() {
         XCTAssertNotNil(firstSeason.hashValue)
     }
-    func testSeasonComparison(){
+    func testSeasonComparable(){
         XCTAssertLessThan(firstSeason!, secondSeason!)
     }
     
-    func testSeasonCustomStringConvertible(){
-        XCTAssertEqual(firstSeason.description, fSeason.description)
+    func testSeasonCustomStringConvertible() {
+        XCTAssertEqual( firstSeason.description, "Se acerca el invierno, 01-04-2011, 1" )
     }
 
     

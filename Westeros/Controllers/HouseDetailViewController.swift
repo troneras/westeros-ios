@@ -28,7 +28,7 @@ class HouseDetailViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -48,6 +48,10 @@ class HouseDetailViewController: UIViewController {
         houseNameLabel.text = "House \(model.name)"
         sigilImageView.image = model.sigil.image
         wordsLabel.text = model.words
+        let backItem = UIBarButtonItem()
+        backItem.title = model.name
+        navigationItem.backBarButtonItem = backItem
+        
     }
     
     //MARK: - UI
@@ -58,14 +62,21 @@ class HouseDetailViewController: UIViewController {
     }
     
     @objc func displayWiki(){
+        //creamos el wikivc
         let wikiViewController = WikiViewController(model:model)
+        //hacemos push
         navigationController?.pushViewController(wikiViewController, animated: true)
     }
     
     @objc func displayMembers(){
+        //creamos VC
         let memberlistViewController = MemberListViewController(model:model.sortedMembers)
+        
+        //Hacemos Push
         navigationController?.pushViewController(memberlistViewController, animated: true)
     }
+    
+
 }
 
 

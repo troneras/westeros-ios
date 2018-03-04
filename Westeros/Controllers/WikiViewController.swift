@@ -5,8 +5,10 @@
 //  Created by Antonio Blázquez on 3/3/18.
 //  Copyright © 2018 Antonio Blázquez. All rights reserved.
 //
+
 import UIKit
 import WebKit
+
 
 class WikiViewController: UIViewController {
 
@@ -17,6 +19,7 @@ class WikiViewController: UIViewController {
     //MARK: - properties
     var model: House
   
+    
     //MARK: - Initialization
     init(model: House){
         self.model  = model
@@ -38,13 +41,14 @@ class WikiViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //Nos damos de alta en las notificaciones
         let noticationCenter = NotificationCenter.default
-    noticationCenter.addObserver(self,selector:#selector(houseDidChange),name:Notification.Name(HOUSE_DID_CHANGE_NOTIFICATION_NAME),object: nil)
+        noticationCenter.addObserver(self,selector:#selector(houseDidChange),name:Notification.Name(HOUSE_DID_CHANGE_NOTIFICATION_NAME),object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        //baja en las notificationes
+        //Nos damos de baja en las notificationes
         let noticationCenter = NotificationCenter.default
         noticationCenter.removeObserver(self)
     }
@@ -57,14 +61,17 @@ class WikiViewController: UIViewController {
     
     //MARK: - Notification
     @objc func houseDidChange(notication: Notification){
-        //extraer userinfo de otificacion
+        //extraer el userinfo de la notificacion
+        //let info = notication.userInfo!
         guard let info = notication.userInfo else{ return }
-        //sacar casa de userinfo
+        
+        //sacar la casa del userinfo
         let house = info[HOUSE_KEY] as? House!
-        //actu modelo
+        //actualizar modelo
         model = house!
-        //sinc vista
+        //sincronizar vista
         syncModelWithView()
+        
     }
 }
 

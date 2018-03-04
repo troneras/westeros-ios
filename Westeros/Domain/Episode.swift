@@ -23,17 +23,24 @@ final class Episode{
   
 }
 
+extension Episode{
+    var stringDate:String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MM-yyyy"
+        return formatter.string(from: airDate)
+    }
+}
+
 
 extension Episode: CustomStringConvertible{
     var description: String {
-         return "\(title) \(airDate)"
+        return "\(title), \(stringDate)"
     }
     
 }
 
 
 //MARK: - Hashable
-
 extension Episode:Hashable{
     var hashValue: Int{
         return proxyForEquiality.hashValue
@@ -43,7 +50,7 @@ extension Episode:Hashable{
 //MARK: - Proxy
 extension Episode{
     var proxyForEquiality: String{
-        return "\(title) \(airDate)"
+        return "\(title) \(stringDate)"
     }
     var proxyForComparison: Date{
         return airDate

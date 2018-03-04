@@ -1,5 +1,5 @@
 //
-//  EpisodeDetailViewController.swift
+//  MemberDetailViewController.swift
 //  Westeros
 //
 //  Created by Antonio Blázquez on 3/3/18.
@@ -8,20 +8,19 @@
 
 import UIKit
 
-class EpisodeDetailViewController: UIViewController {
+class MemberDetailViewController: UIViewController {
 
     //MARK: - Outlets
-    @IBOutlet weak var airDateLabel: UILabel!
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var houseLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
     
     //MARK: - Properties
-    var model: Episode
+    var model: Person
     
     //MARK: - Initialization
-    init( model: Episode ) {
+    init(model:Person){
         self.model = model
         super.init(nibName: nil, bundle: nil)
-        title = model.title
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -31,9 +30,8 @@ class EpisodeDetailViewController: UIViewController {
     //MARK: - Lifecycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        syncModelEpisodeDVC()
+        syncModelWithView()
     }
-   
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -41,20 +39,20 @@ class EpisodeDetailViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
- 
     //MARK: - Sync
-    func syncModelEpisodeDVC() {
-        titleLabel.text = model.title
-        airDateLabel.text = model.stringDate
+    func syncModelWithView(){
+        nameLabel.text = model.name
+        houseLabel.text = model.house.name
     }
+
+   
+
 }
 
-extension EpisodeDetailViewController: EpisodeListViewControllerDelegate{
-    func EpisodeListViewController(_ vc: EpisodeListViewController, didSelectEpisode episode: Episode) {
-        self.model = episode
-        syncModelEpisodeDVC()
-        navigationController?.pushViewController( self, animated: true )
+
+extension MemberDetailViewController: MemberListViewControllerDelegate{
+    func MemberListViewController(_ vc: MemberListViewController) {
+        navigationController?.pushViewController(self, animated: true)
+        
     }
-    
-  
 }
