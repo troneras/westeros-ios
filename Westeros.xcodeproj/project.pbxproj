@@ -44,7 +44,6 @@
 		B0E3F055202CF00A0035D8FC /* HouseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E3F054202CF00A0035D8FC /* HouseTests.swift */; };
 		B0E3F057202CF1C10035D8FC /* House.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E3F056202CF1C10035D8FC /* House.swift */; };
 /* End PBXBuildFile section */
-
 /* Begin PBXContainerItemProxy section */
 		B0E3F046202CE4B80035D8FC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
