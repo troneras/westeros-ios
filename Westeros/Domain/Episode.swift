@@ -3,7 +3,7 @@
 //  Westeros
 //
 //  Created by Antonio Blázquez on 3/3/18.
-//  Copyright © 2018 Antonio Blázquez. All rights reserved.
+//  Copyright © 2018 Antonio Blázquez. All rights reserved
 //
 
 import Foundation
